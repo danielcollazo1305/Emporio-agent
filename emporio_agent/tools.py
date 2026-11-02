@@ -222,6 +222,7 @@ class ToolBox:
             "receipt_date_is_estimate": True,
             "within_window": elapsed <= limit,
             "assumption": "A data de recebimento real não está nos dados; usamos a entrega estimada.",
+            "say_it_like_this": f"a previsão de entrega era {received.strftime('%d/%m/%Y')} (há {days} dias); não afirme que foi entregue nessa data",
         }
         if reason == "regret":
             res["channel_note"] = "O direito de arrependimento do manual vale para compras online."

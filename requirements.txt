@@ -1,0 +1,6 @@
+pypdf>=5.0
+python-dotenv>=1.0
+tzdata>=2024.1
+openai>=1.40        # only needed if LLM_PROVIDER=openai
+anthropic>=0.40     # only needed if LLM_PROVIDER=anthropic
+pytest>=8.0

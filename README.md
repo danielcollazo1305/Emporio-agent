@@ -1,3 +1,5 @@
+<p align="center"><img src="docs/logo.png" alt="Empório da Música" width="420"></p>
+
 # Empório da Música — customer-service agent
 
 A text-message (WhatsApp-style) customer-service agent for **Empório da Música**, a fictional musical-instrument store in Campo Grande/MS. It answers from the store's CSV data (products, promotions, customers, orders) and from the policy manual (PDF), decides which of the two a question needs, and politely refuses what is out of scope.

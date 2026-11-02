@@ -2,7 +2,7 @@
 
 A text-message (WhatsApp-style) customer-service agent for **Empório da Música**, a fictional musical-instrument store in Campo Grande/MS. It answers from the store's CSV data (products, promotions, customers, orders) and from the policy manual (PDF), decides which of the two a question needs, and politely refuses what is out of scope.
 
-Built in Python for the Artefact AI Engineer technical challenge. The assistant is called **Leo**, speaks Brazilian Portuguese, and keeps an informal-but-professional tone, as the manual asks (section 7.1).
+Built in Python for the Artefact AI Engineer technical challenge. The assistant is called **Jimi**, speaks Brazilian Portuguese, and keeps an informal-but-professional tone, as the manual asks (section 7.1).
 
 ## Quick start
 
@@ -11,7 +11,7 @@ python -m venv .venv && source .venv/bin/activate      # Windows: .venv\Scripts\
 pip install -r requirements.txt
 cp .env.example .env        # then put YOUR key in .env (never commit it)
 python -m emporio_agent --session demo --debug          # interactive chat; --debug shows tool calls
-pytest -q                   # 35 offline tests, no API key needed
+pytest -q                   # 37 offline tests, no API key needed (one needs pdftotext and is skipped without it)
 python scripts/run_scenarios.py                         # regenerates examples/*.md with your key
 ```
 
@@ -53,7 +53,7 @@ customer message ──► Agent loop ──► LLM (OpenAI or Anthropic, same i
 
 ## Handling inconsistencies
 
-The data and the manual contain contradictions (two phone numbers, installment minimums that disagree, descriptions that contradict product names, a duplicated e-mail, order totals that do not add up…). The agent does not silently pick a side: where the manual conflicts with itself, the policy tool attaches a `conflict_note` and the prompt tells Leo to explain the divergence and offer to confirm with the team. The full list and the chosen behaviour is in [`docs/data_findings.md`](docs/data_findings.md).
+The data and the manual contain contradictions (two phone numbers, installment minimums that disagree, descriptions that contradict product names, a duplicated e-mail, order totals that do not add up…). The agent does not silently pick a side: where the manual conflicts with itself, the policy tool attaches a `conflict_note` and the prompt tells Jimi to explain the divergence and offer to confirm with the team. The full list and the chosen behaviour is in [`docs/data_findings.md`](docs/data_findings.md).
 
 ## Assumptions
 
@@ -66,7 +66,7 @@ The data and the manual contain contradictions (two phone numbers, installment m
 
 * **Retrieval is lexical.** Unusual phrasing outside the synonym table can miss a section. The tests cover the main intents only.
 * **The model can still phrase things imperfectly.** Rules are enforced in tools, but wording (e.g. forgetting to show the original price next to a promotion) depends on the LLM. There is no automated check of final answers; I would add an LLM-as-judge or rule-based evaluation set next.
-* **No actions.** Leo cannot create orders, issue refunds or open tickets; it explains the next step. Complaints are acknowledged but not actually stored anywhere.
+* **No actions.** Jimi cannot create orders, issue refunds or open tickets; it explains the next step. Complaints are acknowledged but not actually stored anywhere.
 * **Single-user storage.** JSON files, no locking, no authentication of the chat channel itself; identity is verified only by e-mail/phone knowledge, which is a weak factor (a real system should use a one-time code).
 * **Stock/prices are a CSV snapshot**, not live.
 * **Holidays** are unknown, so "open now" can be wrong on a holiday.

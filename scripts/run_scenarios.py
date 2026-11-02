@@ -23,17 +23,19 @@ from emporio_agent.agent import Agent  # noqa: E402
 from emporio_agent.llm import make_llm  # noqa: E402
 
 SCENARIOS = {
-    "01_catalog_search_violoes_ate_1000": (
-        "Product search with a price filter and stock check (data lookup)",
-        ["Oi! Vocês têm violão até R$ 1000?", "Qual o melhor para quem está começando?"],
+    "01_fender_catalog": (
+        "Brand-specific catalogue search (data lookup)",
+        ["E aí, vocês têm guitarra Fender? Quais modelos?", "Tem alguma em promoção?"],
     ),
-    "02_store_address_and_hours": (
-        "Store info from the policy manual",
-        ["Qual o endereço da loja? E abre sábado?"],
+    "02_fender_price_comparison_pix": (
+        "Price comparison and the PIX rule (data + payment policy)",
+        ["Qual a diferença de preço entre a Stratocaster e a Telecaster?",
+         "Se eu pagar a Telecaster no PIX, quanto fica?"],
     ),
-    "03_price_takamine_gd20_and_pix": (
-        "Price lookup, promotion check (inactive promo) and PIX rule",
-        ["Quanto custa o Takamine GD20? Vi que estava em promoção.", "E se eu pagar no PIX?"],
+    "03_installments_and_shipping_dourados": (
+        "Installments and shipping outside Campo Grande (policy + calculation, honest about what is unknown)",
+        ["Dá pra parcelar a Stratocaster American Pro II em 12x?",
+         "Moro em Dourados. Quanto fica o frete dessa guitarra e em quanto tempo chega?"],
     ),
     "04_regret_return_with_order": (
         "Identity verification + order data + return policy (data and policy together)",
@@ -41,9 +43,9 @@ SCENARIOS = {
          "Meu email é lucas.mendes@jmail.com",
          "É o pedido 4. Dá para devolver?"],
     ),
-    "05_out_of_scope_and_accessories": (
+    "05_out_of_scope_accessories_and_weather": (
         "Accessories and unrelated questions (out of scope)",
-        ["Vocês vendem cordas de violão?", "Aproveitando, qual a previsão do tempo amanhã em Campo Grande?"],
+        ["Vocês vendem cabo e palheta pra Telecaster?", "Aproveitando, qual a previsão do tempo amanhã em Campo Grande?"],
     ),
 }
 
@@ -68,7 +70,7 @@ def main() -> None:
                         lines.append(f"> _tool call:_ `{t['tool']}({t['args']})`")
                 if agent.trace:
                     lines.append("")
-                lines += [f"**Leo:** {reply}", ""]
+                lines += [f"**Jimi:** {reply}", ""]
         (out_dir / f"{name}.md").write_text("\n".join(lines), encoding="utf-8")
         print("wrote", name)
 

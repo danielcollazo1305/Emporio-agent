@@ -1,4 +1,4 @@
-"""Provider adapters. The agent talks to one tiny interface; history is provider-neutral:
+﻿"""Provider adapters. The agent talks to one tiny interface; history is provider-neutral:
 
   {"role": "user", "content": str}
   {"role": "assistant", "content": str, "tool_calls": [{"id", "name", "args"}]}
@@ -99,7 +99,7 @@ class AnthropicLLM(LLM):
 
     def complete(self, system, history, tools):
         resp = self.client.messages.create(
-            model=self.model, max_tokens=1024, system=system, temperature=0.3,
+            model=self.model, max_tokens=1024, system=system, 
             messages=self._messages(history),
             tools=[{"name": t["name"], "description": t["description"], "input_schema": t["parameters"]} for t in tools],
         )
@@ -129,3 +129,4 @@ def make_llm() -> LLM:
     if provider == "openai":
         return OpenAILLM()
     raise SystemExit(f"LLM_PROVIDER inválido: {provider} (use openai ou anthropic)")
+

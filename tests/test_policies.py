@@ -48,3 +48,8 @@ def test_markdown_numbers_match_pdf():
     # Only the md header (version note) and section numbering may differ.
     allowed = {"2.1", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "0"}
     assert not {m for m in missing if m not in allowed and not re.fullmatch(r"\d+\.\d+", m)}, missing
+
+
+def test_address_section_warns_about_both_phone_numbers(idx):
+    note = idx.get("1.2").conflict
+    assert "3341-4444" in note and "3321-4500" in note

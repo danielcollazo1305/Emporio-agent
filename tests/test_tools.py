@@ -99,3 +99,12 @@ def test_store_hours_wednesday_morning_open(tb):
 def test_unknown_tool_and_bad_args_do_not_crash(tb):
     assert "error" in tb.call("drop_database", {})
     assert "error" in tb.call("get_order_status", {"wrong": 1})
+
+
+def test_expired_regret_does_not_offer_closed_windows(tb):
+    tb.verify_customer("lucas.mendes@jmail.com")
+    r = tb.check_return_eligibility(4, reason="regret")  # bought 2025-12-10, today 2026-03-25
+    other = r["other_options"]
+    assert other["defect_exchange_still_open"] is False
+    assert other["legal_warranty_still_open"] is False
+    assert "manufacturer_warranty" in other

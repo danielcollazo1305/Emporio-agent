@@ -229,8 +229,23 @@ class ToolBox:
         if reason == "defect" and elapsed > limit:
             res["next_step"] = "Após 30 dias: garantia legal (90 dias do recebimento) e do fabricante; a loja pode intermediar."
             res["warranty_days_elapsed"] = days
-        if reason == "regret" and elapsed > limit:
-            res["next_step"] = "Fora do prazo de arrependimento. Se houver defeito, vale a troca (30 dias da compra) ou garantia."
+        if elapsed > limit and reason in ("regret", "preference"):
+            today = config.today()
+            defect_open = (today - order_date).days <= 30
+            legal_open = days <= 90
+            res["other_options"] = {
+                "defect_exchange_still_open": defect_open,
+                "defect_exchange_rule": "troca por defeito: 30 dias corridos da COMPRA",
+                "days_since_purchase": (today - order_date).days,
+                "legal_warranty_still_open": legal_open,
+                "legal_warranty_rule": "garantia legal: 90 dias do recebimento (data estimada)",
+                "days_since_receipt_estimate": days,
+                "manufacturer_warranty": "pode valer (de 6 meses a 2 anos, conforme o certificado do produto); a loja pode intermediar sob solicitação",
+            }
+            res["next_step"] = (
+                "Fora do prazo de arrependimento/preferência. NÃO ofereça troca por defeito nem garantia legal se "
+                "other_options mostrar que a janela já fechou; só a garantia do fabricante pode restar."
+            )
         return res
 
     # ---------- money & logistics ----------

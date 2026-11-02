@@ -66,7 +66,9 @@ CONFLICT_NOTES = {
     "0": "O telefone da capa/seção 1.2 é (67) 3341-4444, mas a seção 7 cita o WhatsApp (67) 3321-4500. "
          "Informe os dois com transparência e diga que a loja confirma qual é o canal oficial.",
     "1.2": "O e-mail aparece como contato@emporiodamusica.com.br na capa e contato@empóriodamusica.com.br "
-           "(com acento) na tabela de dados da empresa. Use a versão sem acento e avise que o manual diverge.",
+           "(com acento) na tabela de dados da empresa. Use a versão sem acento e avise que o manual diverge. "
+           "Além disso, o telefone desta tabela é (67) 3341-4444, mas a seção 7 cita o WhatsApp (67) 3321-4500: "
+           "ao informar contato, passe os dois e diga que a loja confirma o canal oficial.",
     "3": "A tabela diz 'parcela mínima de R$ 100,00' para crédito até 12x, mas a seção 3.1 define mínimos "
          "por faixa (3x sem mínimo, 4–6x R$ 80, 7–12x R$ 100). Assumimos a seção 3.1, que é a mais específica.",
     "3.1": "Conflito com a tabela da seção 3 (parcela mínima única de R$ 100). Prevalece a regra por faixa daqui.",

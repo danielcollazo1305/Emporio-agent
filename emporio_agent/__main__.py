@@ -1,4 +1,4 @@
-"""CLI chat: `python -m emporio_agent [--session NAME] [--debug]`."""
+﻿"""CLI chat: `python -m emporio_agent [--session NAME] [--debug]`."""
 from __future__ import annotations
 
 import argparse
@@ -19,7 +19,7 @@ def main() -> None:
     agent = Agent(make_llm(), session_id=args.session)
     print("Empório da Música — atendimento (digite 'sair' para encerrar)\n")
     if not agent.history:
-        print("Leo: Opa! Aqui é o Leo, da Empório da Música. Como posso te ajudar hoje?\n")
+        print("Jimi: Opa! Aqui é o Jimi, da Empório da Música. Como posso te ajudar hoje?\n")
     while True:
         try:
             text = input("Você: ").strip()
@@ -39,3 +39,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
